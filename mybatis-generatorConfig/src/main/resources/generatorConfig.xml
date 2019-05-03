@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+  
+
+<!-- http://www.mybatis.org/generator/configreference/xmlconfig.html -->
+<generatorConfiguration>
+
+
+  <context id="DB2Tables" targetRuntime="MyBatis3">
+  	<!-- 注释生成 -->
+  	<commentGenerator>
+  		<property name="suppressAllComments" value="true"/>
+  		<property name="suppressDate" value="true"/>
+  	</commentGenerator>
+  	<!-- 数据库连接 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://192.168.56.101:3306/myadmin?zeroDateTimeBehavior=convertToNull&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false"
+        userId="root"
+        password="123456">
+    </jdbcConnection>
+	<!-- 类型转换 -->
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+	<!-- 表实体生成路径 -->
+    <javaModelGenerator targetPackage="com.edu.scnu.user.bean" targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+	<!-- 生成mapper文件的位置 -->
+    <sqlMapGenerator targetPackage="mapper"  targetProject="src/main/resources/">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+	<!-- 生成mapper接口的位置 -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.edu.scnu.user.dao"  targetProject="src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+    <table schema="mybatis" tableName="t_user" domainObjectName="User" ></table>
+
+  </context>
+</generatorConfiguration>
