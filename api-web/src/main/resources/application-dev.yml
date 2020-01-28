@@ -1,9 +1,0 @@
-server:
-  port: 8080
-  
-spring:
-  profiles:    include: dao-dev,service-dev
-  servlet:
-    multipart:      max-file-size: 10MB
-      max-request-size: 10MB
-  
