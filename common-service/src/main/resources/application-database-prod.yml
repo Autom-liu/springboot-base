@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/test?characterEncoding=utf-8&useSSL=false
+    username: blog
+    password: '123456'
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 1                            # 初始化大小
+    minIdle: 1                                # 最小等待连接数量
+    maxIdle: 5                                # 最大等待连接数量
+    maxActive: 20                             # 最大连接数
+    maxWait: 60000                            # 配置获取连接等待超时的时间
+    timeBetweenEvictionRunsMillis: 60000      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    minEvictableIdleTimeMillis: 300000        # 配置一个连接在池中最小生存的时间，单位是毫秒
