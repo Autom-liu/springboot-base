@@ -5,7 +5,7 @@
     <artifactId>springboot-base</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>common</artifactId>
+  <artifactId>springboot-base-common</artifactId>
   
   <dependencies>
     <dependency>

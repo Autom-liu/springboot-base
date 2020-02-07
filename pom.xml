@@ -86,5 +86,6 @@
 	<modules>
 		<module>springboot-base-common</module>
 		<module>springboot-base-common-service</module>
+		<module>springboot-base-baseinfo</module>
 	</modules>
 </project>

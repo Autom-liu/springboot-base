@@ -5,11 +5,11 @@
     <artifactId>springboot-base</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>baseinfo</artifactId>
+  <artifactId>springboot-base-baseinfo</artifactId>
   <dependencies>
   	<dependency>
   		<groupId>com.edu.scnu</groupId>
-  		<artifactId>common-service</artifactId>
+  		<artifactId>springboot-base-common-service</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>

@@ -5,7 +5,7 @@
     <artifactId>springboot-base</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>common-service</artifactId>
+  <artifactId>springboot-base-common-service</artifactId>
   <dependencies>
   	<dependency>
   		<groupId>com.alibaba</groupId>
@@ -43,7 +43,7 @@
 	</dependency>
   	<dependency>
   		<groupId>com.edu.scnu</groupId>
-  		<artifactId>common</artifactId>
+  		<artifactId>springboot-base-common</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
