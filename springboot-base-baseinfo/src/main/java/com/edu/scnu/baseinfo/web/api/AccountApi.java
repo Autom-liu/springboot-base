@@ -42,13 +42,13 @@ public class AccountApi {
 	}
 	
 	@GetMapping("/account/{id}")
-	public Result<AccountVO> findOne(@PathVariable("id") Integer id) {
+	public IResult findOne(@PathVariable("id") Integer id) {
 		AccountVO accountVO = accountService.findOne(id);
 		return Result.success(accountVO);
 	}
 	
 	@GetMapping("/account/list")
-	public ResultList<AccountVO> findList(AccountQuery query) {
+	public IResult findList(AccountQuery query) {
 		List<AccountVO> result = accountService.queryList(query);
 		return ResultList.success(result);
 	}
