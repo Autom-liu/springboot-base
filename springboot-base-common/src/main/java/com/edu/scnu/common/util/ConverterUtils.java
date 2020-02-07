@@ -7,7 +7,7 @@ import org.springframework.beans.BeanUtils;
 
 import com.edu.scnu.common.enums.BaseStatusEnum;
 
-public class DataUtils {
+public class ConverterUtils {
 	
 	/**
 	 * 类似BeanUtils的copyProperties功能，类型转换器

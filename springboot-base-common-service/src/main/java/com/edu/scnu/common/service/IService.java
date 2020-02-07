@@ -22,6 +22,8 @@ public interface IService<T, DTO, VO> {
 	
 	int deleteById(Integer id);
 	
-	void deleteByIds(List<Integer> ids);
+	int deleteByIds(List<Integer> ids);
+	
+	int updateByIdSelective(DTO dto);
 	
 }

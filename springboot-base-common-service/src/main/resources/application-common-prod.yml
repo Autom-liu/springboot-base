@@ -1,0 +1,6 @@
+spring:
+  profiles:    include:    - database-prod
+
+website:
+  cros-list:
+  - http://zwebapp.it120cc.com

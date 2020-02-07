@@ -1,0 +1,9 @@
+server:
+  port: 9080
+  servlet:
+    context-path: /api/zwebapp-baseinfo
+spring:
+  application:
+    name: zwebapp
+  profiles:
+    active: dev

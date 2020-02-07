@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    include:
+    - common-prod
+
+mybatis:
+  type-aliases-package: com.scnu.zwebapp.baseinfo.bean
+  mapper-locations: classpath:mapper/**.xml,classpath:mapper/ext/**.xml

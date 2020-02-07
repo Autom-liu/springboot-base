@@ -27,7 +27,7 @@ public class AccountServiceImpl extends BaseService<Account, AccountDTO, Account
 		
 		AccountExample example = new ExampleProxy();
 		
-		super.handlePageOrder(query, null, example);
+		super.handlePageOrder(query, false, example);
 		
 		// TODO Here build the condition you want
 		
@@ -42,11 +42,6 @@ public class AccountServiceImpl extends BaseService<Account, AccountDTO, Account
 		query.setPageFlag(false);
 		PageVO<AccountVO> pageVO = this.queryPage(query);
 		return pageVO.getData();
-	}
-	
-	@Override
-	protected void fieldConverter(Account source, AccountVO target) {
-
 	}
 
 	private class ExampleProxy extends AccountExample {

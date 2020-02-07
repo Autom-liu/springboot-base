@@ -9,6 +9,12 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+/**
+ * CROS配置，在分布式部署条件下避免浏览器跨域限制
+ * @author Autom
+ * @date 2020年2月7日
+ * @version 1.0
+ */
 @Configuration
 public class CrosConfig {
 	
@@ -20,7 +26,6 @@ public class CrosConfig {
 		//1.添加CORS配置信息
         CorsConfiguration config = new CorsConfiguration();
         //1) 允许的域,不要写*，否则cookie就无法使用了
-        // TODO  不要写死在这里，配置文件里去配
         List<String> crosList = websiteConfig.getCrosList();
         for(String url : crosList) {
         	config.addAllowedOrigin(url);        	
@@ -40,10 +45,9 @@ public class CrosConfig {
         // 5）有效时长
         config.setMaxAge(3600L);
 
-        //2.添加映射路径，我们拦截一切请求
+//        //2.添加映射路径，我们拦截一切请求
         UrlBasedCorsConfigurationSource configSource = new UrlBasedCorsConfigurationSource();
         configSource.registerCorsConfiguration("/**", config);
-
         //3.返回新的CorsFilter.
         return new CorsFilter(configSource);
 	}
