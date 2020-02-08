@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeanUtils;
 
 import com.edu.scnu.common.enums.BaseStatusEnum;
+import com.edu.scnu.common.enums.IErrorEnum;
+import com.edu.scnu.common.exception.SystemException;
 
 public class ConverterUtils {
 	
@@ -24,7 +26,7 @@ public class ConverterUtils {
 			BeanUtils.copyProperties(source, target);
 			return target;
 		} catch (InstantiationException | IllegalAccessException e) {
-			throw new RuntimeException("DataUtils.copyBean 出错");
+			throw new SystemException(IErrorEnum.getInstance("", ""), e);
 		}
 	}
 	
@@ -62,7 +64,7 @@ public class ConverterUtils {
 	 * @param codeEnum
 	 * @return
 	 */
-	public static<T extends BaseStatusEnum> T getEnumByCode(Integer code, Class<T> codeEnum) {
+	public static<T extends BaseStatusEnum> T getEnumByCode(String code, Class<T> codeEnum) {
 		if (code != null) {
 			for (T each : codeEnum.getEnumConstants()) {
 				if(code.equals(each.getCode())) {

@@ -12,6 +12,13 @@ public class SystemException extends RuntimeException {
 		super(exceptionEnum.getMsg());
 		this.exceptionEnum = exceptionEnum;
 	}
+	
+	public SystemException(IErrorEnum exceptionEnum, Throwable t) {
+		super(exceptionEnum.getMsg(), t);
+		this.exceptionEnum = exceptionEnum;
+	}
+
+
 
 	public IErrorEnum getExceptionEnum() {
 		return exceptionEnum;
