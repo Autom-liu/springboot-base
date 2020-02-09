@@ -3,9 +3,9 @@ package com.edu.scnu.baseinfo.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.edu.scnu.common.bean.BaseExample;
+import com.edu.scnu.common.base.BaseExample;
 
-public class AccountExample extends BaseExample {
+public class AccountExample implements BaseExample {
     protected String orderByClause;
 
     protected boolean distinct;

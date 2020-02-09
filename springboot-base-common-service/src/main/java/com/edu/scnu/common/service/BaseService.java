@@ -6,8 +6,8 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.edu.scnu.common.base.BaseExample;
 import com.edu.scnu.common.base.BaseOrderByEnum;
-import com.edu.scnu.common.bean.BaseExample;
 import com.edu.scnu.common.query.PageQuery;
 import com.edu.scnu.common.util.ConverterUtils;
 import com.edu.scnu.common.vo.PageVO;

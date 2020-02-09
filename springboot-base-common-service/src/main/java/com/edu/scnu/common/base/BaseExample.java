@@ -1,4 +1,4 @@
-package com.edu.scnu.common.bean;
+package com.edu.scnu.common.base;
 
 /**
  * If you want to handle pagination and order by clause by using
@@ -7,7 +7,7 @@ package com.edu.scnu.common.bean;
  * @author Autom
  *
  */
-public abstract class BaseExample {
+public interface BaseExample {
 	
 	public abstract void setOrderByClause(String orderByClause);
 	
