@@ -25,17 +25,17 @@ public class PageQuery implements Serializable {
 	/**
 	 * 当前页，默认为1
 	 */
-	private Integer currentPage = DEFAULT_CURRENTPAGE;
+	private Integer currentPage;
 	
 	/**
 	 * 每页大小
 	 */
-	private Integer pageSize = DEFAULT_PAGESIZE;
+	private Integer pageSize;
 	
 	/**
 	 * 是否需要分页，默认开启
 	 */
-	private Boolean pageFlag = true;
+	private Boolean pageFlag;
 	
 	/**
 	 * 排序枚举
