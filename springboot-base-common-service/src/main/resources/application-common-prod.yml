@@ -1,6 +1,9 @@
 spring:
-  profiles:    include:    - database-prod
+  profiles:
+    include:
+    - database-dev
 
 website:
   cros-list:
-  - http://zwebapp.it120cc.com
+  - http://www.it120cc.com
+  - http://www.myblog.com
