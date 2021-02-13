@@ -14,7 +14,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 @JsonDeserialize(using = BaseEnumConverterDeserializerFactory.class)
 public interface BaseOrderByEnum extends BaseStatusEnum {
 
-	BaseFunction getOrderField();
+	String getOrderField();
 	
 	default String getMsg() {
 		return null;

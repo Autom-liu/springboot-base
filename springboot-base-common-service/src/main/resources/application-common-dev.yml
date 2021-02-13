@@ -1,7 +1,5 @@
 spring:
-  profiles:
-    include:
-    - database-dev
+  profiles:    include:    - database-dev
 
 website:
   cros-list:

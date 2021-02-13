@@ -1,12 +1,12 @@
 datasource:
-  ip: ENC(Pg3js76QQsvFdQXOzb5CJ2cup/YW0QxRc/LjehQC0JWKl76WLCY7kw==)
+  ip: ENC(WZBRZkAor/oLYGZZEHFL75uct0dfrxS3ImPAz4p6vSI651ZkjIOdbw==)
  
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://${datasource.ip}?characterEncoding=utf-8&useSSL=false
-    username: admin
-    password: ENC(gUOXA722h96dSfFm4Nz/ow==)
+    username: blog
+    password: ENC(WxPthLpYNeiRQKX0ejRAdA==)
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initialSize: 1                            # 初始化大小
@@ -21,4 +21,3 @@ jasypt:
   encryptor:
     algorithm: PBEWithMD5AndDES
     iv-generator-classname: org.jasypt.iv.NoIvGenerator
-

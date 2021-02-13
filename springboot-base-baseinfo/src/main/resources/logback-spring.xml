@@ -13,10 +13,10 @@
 	<property name="log.maxHistory" value="30" />
 	<!-- 日志存储位置 -->
 	<springProfile name="dev">
-		<property name="log.filePath" value="G:\WebSpace\myJee\logs\baseinfo"/>
+		<property name="log.filePath" value="G:\\WebSpace\\myJee\\logs\\zwebapp"/>
 	</springProfile>
 	<springProfile name="prod">
-		<property name="log.filePath" value="/var/log/webapps/baseinfo"/>
+		<property name="log.filePath" value="/var/log/webapps/zwebapp"/>
 	</springProfile>
 	<!-- 日志记录格式： 时间 + 线程 + 级别 + 日志信息（类名方法名：+ 信息） -->
 	<property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>

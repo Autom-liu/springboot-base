@@ -3,8 +3,9 @@ package com.edu.scnu.common.vo;
 import java.io.Serializable;
 import java.util.List;
 
+import com.github.pagehelper.PageInfo;
+
 import lombok.Data;
-import org.springframework.data.domain.Page;
 
 /**
  * 	公共Vo对象之，分页数据存储的Vo对象
@@ -17,40 +18,40 @@ public class PageVO<T> implements Serializable {
 
 	private static final long serialVersionUID = -2207112935012444854L;
 
-	private DefinitePage pageInfo;
+	private Page pageInfo;
 	
 	private List<T> data;
 	
 	public PageVO() {
-		pageInfo = new DefinitePage();
+		pageInfo = new Page();
 	}
 	
-	public PageVO(Page<T> pageInfo) {
+	public PageVO(PageInfo<T> pageInfo) {
 		this();
-		this.pageInfo.currentPage = pageInfo.getNumber() + 1;
-		this.pageInfo.pageSize = pageInfo.getSize();
-		this.pageInfo.length = pageInfo.getNumberOfElements();
-		this.pageInfo.total = pageInfo.getTotalElements();
-		this.pageInfo.totalPage = pageInfo.getTotalPages();
-		this.data = pageInfo.getContent();
-		this.pageInfo.isFirst = pageInfo.isFirst();
-		this.pageInfo.hasNext = pageInfo.hasNext();
+		this.pageInfo.currentPage = pageInfo.getPageNum();
+		this.pageInfo.pageSize = pageInfo.getPageSize();
+		this.pageInfo.length = pageInfo.getSize();
+		this.pageInfo.total = pageInfo.getTotal();
+		this.pageInfo.totalPage = pageInfo.getPages();
+		this.data = pageInfo.getList();
+		this.pageInfo.isFirst = pageInfo.isIsFirstPage();
+		this.pageInfo.hasNext = pageInfo.isHasNextPage();
 	}
 	
-	public PageVO(Page<?> pageInfo, List<T> rows) {
+	public PageVO(PageInfo<?> pageInfo, List<T> rows) {
 		this();
-		this.pageInfo.currentPage = pageInfo.getNumber() + 1;
-		this.pageInfo.pageSize = pageInfo.getSize();
-		this.pageInfo.length = pageInfo.getNumberOfElements();
-		this.pageInfo.total = pageInfo.getTotalElements();
-		this.pageInfo.totalPage = pageInfo.getTotalPages();
+		this.pageInfo.currentPage = pageInfo.getPageNum();
+		this.pageInfo.pageSize = pageInfo.getPageSize();
+		this.pageInfo.length = pageInfo.getSize();
+		this.pageInfo.total = pageInfo.getTotal();
+		this.pageInfo.totalPage = pageInfo.getPages();
 		this.data = rows;
-		this.pageInfo.isFirst = pageInfo.isFirst();
-		this.pageInfo.hasNext = pageInfo.hasNext();
+		this.pageInfo.isFirst = pageInfo.isIsFirstPage();
+		this.pageInfo.hasNext = pageInfo.isHasNextPage();
 	}
 	
 	@Data
-	private class DefinitePage implements Serializable {
+	private class Page implements Serializable {
 
 		private static final long serialVersionUID = -4019585481529601742L;
 

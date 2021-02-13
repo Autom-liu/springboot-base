@@ -1,21 +1,18 @@
-package  com.edu.scnu.common.service;
+package com.edu.scnu.common.service;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import com.edu.scnu.common.base.BaseMapper;
-import com.edu.scnu.common.enums.ErrorEnum;
-import com.edu.scnu.common.exception.BizException;
-import com.edu.scnu.common.query.QueryBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import  com.edu.scnu.common.query.PageQuery;
-import  com.edu.scnu.common.util.ConverterUtils;
-import  com.edu.scnu.common.vo.PageVO;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import com.edu.scnu.common.base.BaseExample;
+import com.edu.scnu.common.base.BaseOrderByEnum;
+import com.edu.scnu.common.query.PageQuery;
+import com.edu.scnu.common.util.ConverterUtils;
+import com.edu.scnu.common.vo.PageVO;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 /**
  * 通用服务接口，它可以快速为我们完成增删改查（单个）的服务开发<br/>
@@ -29,7 +26,7 @@ import org.springframework.data.domain.Pageable;
 public abstract class BaseService<T, DTO, VO> implements IService<T, DTO, VO> {
 	
 	@Autowired
-	protected BaseMapper<T> mapper;
+	protected Mapper<T> mapper;
 	
 	private Class<T> beanClass;
 	
@@ -86,44 +83,59 @@ public abstract class BaseService<T, DTO, VO> implements IService<T, DTO, VO> {
 		T bean = ConverterUtils.copyBean(dto, beanClass);
 		return mapper.updateByPrimaryKeySelective(bean);
 	}
-
+	
 	/**
-	 * 条件分页查询
-	 * @param pageQuery
-	 * @param queryBuilder
-	 * @return
-	 * @throws BizException 分页参数不正确
+	 * 通用处理分页排序逻辑
+	 * 可以通过：xxxExample.setOrderByClause(super.handlePageOrder(...)) 方便调用
+	 * @see {@link handlePageOrder}
+	 * @param query	PageQuery的条件查询对象
+	 * @param clazz 排序枚举
+	 * @return 在分页或不排序的情况下返回null，在不分页排序情况下返回需要排序的子句。
 	 */
-	protected final PageVO<VO> queryPage(PageQuery pageQuery, QueryBuilder<T> queryBuilder) throws BizException {
-		return queryPage(pageQuery, queryBuilder, (r, t) -> {});
-	}
-
-	/**
-	 * 条件分页查询
-	 * @param pageQuery
-	 * @param queryBuilder
-	 * @param convertAction
-	 * @return
-	 * @throws BizException 分页参数不正确
-	 */
-	protected final PageVO<VO> queryPage(PageQuery pageQuery, QueryBuilder<T> queryBuilder, ConverterUtils.Executor<T, VO> convertAction) throws BizException {
-
-		long total = mapper.countByExample(queryBuilder);
-		Integer currentPage = pageQuery.getCurrentPage();
-		Integer pageSize = pageQuery.getPageSize();
-
-		if (currentPage == null || pageSize == null) {
-			throw new BizException(ErrorEnum.ERRCODE_0001);
+	protected final String handlePageOrder(PageQuery query, boolean needOrder) {
+		Boolean hasOrder = (needOrder && query.getOrderBy() != null);
+		Boolean pageFlag = query.getPageFlag();
+		String orderField = null;
+		if(hasOrder) {
+			BaseOrderByEnum orderByEnum = query.getOrderBy();
+			orderField = orderByEnum.getOrderField();
 		}
-
-		int beginNum = (currentPage - 1) * pageSize;
-		queryBuilder.limit(beginNum, pageSize);
-		List<T> ts = mapper.selectByExample(queryBuilder);
-		List<VO> voList = ConverterUtils.copyList(ts, voClass, convertAction);
-		queryBuilder.clearLimit();
-		Pageable pageRequest = PageRequest.of(currentPage - 1, pageSize);
-		PageImpl<VO> pageComputed = new PageImpl<>(voList, pageRequest, total);
-		return new PageVO<>(pageComputed);
+		
+		if(pageFlag && hasOrder) {
+			// 分页排序，则使用PageHelper进行分页排序
+			PageHelper.startPage(query.getCurrentPage(), query.getPageSize(), orderField);
+		} else if (pageFlag && !hasOrder) {
+			// 分页不排序
+			PageHelper.startPage(query.getCurrentPage(), query.getPageSize());
+		} else if (!pageFlag && hasOrder) {
+			// 不分页要排序
+		} else {
+			// 不分页也不排序
+		}
+		return orderField;
+	}
+	
+	/**
+	 * 通用处理分页排序逻辑，自动构造分页排序字段
+	 * @param query	PageQuery的条件查询对象
+	 * @param clazz 排序枚举
+	 * @param example 查询条件对象
+	 */
+	protected final void handlePageOrder(PageQuery query, boolean needOrder, BaseExample example) {
+		example.setOrderByClause(handlePageOrder(query, needOrder));
+	}
+	
+	/**
+	 * 分页查询结果集处理，调用它可以很方便将处理的分页结果集转换VO对象
+	 * @param result
+	 * @return
+	 */
+	protected final PageVO<VO> handlePageResult(List<T> result) {
+		PageInfo<T> pageInfo = new PageInfo<T>(result);
+		
+		List<VO> list = ConverterUtils.copyList(pageInfo.getList(), this.voClass);
+		
+		return new PageVO<>(pageInfo, list);
 	}
 
 }

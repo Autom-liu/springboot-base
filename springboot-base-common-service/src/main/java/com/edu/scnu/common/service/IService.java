@@ -1,8 +1,8 @@
-package  com.edu.scnu.common.service;
+package com.edu.scnu.common.service;
 
 import java.util.List;
 
-import  com.edu.scnu.common.exception.BizException;
+import com.edu.scnu.common.exception.BizException;
 
 /**
  * 公共接口的服务
