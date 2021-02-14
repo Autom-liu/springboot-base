@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edu.scnu.common.proxy.CriteriaProxy;
-import com.edu.scnu.common.service.BaseService;
+import com.edu.scnu.common.service.CommonService;
 import com.edu.scnu.common.vo.PageVO;
 import com.edu.scnu.baseinfo.bean.Account;
 import com.edu.scnu.baseinfo.bean.AccountExample;
@@ -15,13 +15,18 @@ import com.edu.scnu.baseinfo.mapper.AccountMapper;
 import com.edu.scnu.baseinfo.query.AccountQuery;
 import com.edu.scnu.baseinfo.service.AccountService;
 import com.edu.scnu.baseinfo.vo.AccountVO;
+import tk.mybatis.mapper.common.BaseMapper;
 
 @Service
-public class AccountServiceImpl extends BaseService<Account, AccountDTO, AccountVO> implements AccountService {
+public class AccountServiceImpl extends CommonService<Account, AccountDTO, AccountVO> implements AccountService {
 
-	@Autowired
 	private AccountMapper accountMapper;
-	
+
+	public AccountServiceImpl(AccountMapper accountMapper) {
+		super(Account.class, AccountDTO.class, AccountVO.class, accountMapper);
+		this.accountMapper = accountMapper;
+	}
+
 	@Override
 	public PageVO<AccountVO> queryPage(AccountQuery query) {
 		

@@ -1,0 +1,9 @@
+server:
+  port: 9080
+  servlet:
+    context-path: /api/idnt
+spring:
+  application:
+    name: springboot-base-idnt
+  profiles:
+    active: dev

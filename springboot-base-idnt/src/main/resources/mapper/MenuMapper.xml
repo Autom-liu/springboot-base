@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.scnu.idnt.mapper.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.edu.scnu.idnt.bean.Menu">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="menu_type" jdbcType="INTEGER" property="menuType" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="order" jdbcType="INTEGER" property="order" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="BIT" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    `menu_id`, `menu_name`, `parent_id`, `menu_type`, `url`, `order`, `remark`, `create_time`, 
+    `update_time`, `status`
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.scnu.idnt.bean.MenuExample" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from idnt_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.edu.scnu.idnt.bean.MenuExample">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    delete from idnt_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <select id="countByExample" parameterType="com.edu.scnu.idnt.bean.MenuExample" resultType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    select count(*) from idnt_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update idnt_menu
+    <set>
+      <if test="record.menuId != null">
+        `menu_id` = #{record.menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuName != null">
+        `menu_name` = #{record.menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        `parent_id` = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.menuType != null">
+        `menu_type` = #{record.menuType,jdbcType=INTEGER},
+      </if>
+      <if test="record.url != null">
+        `url` = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.order != null">
+        `order` = #{record.order,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null">
+        `remark` = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=BIT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update idnt_menu
+    set `menu_id` = #{record.menuId,jdbcType=VARCHAR},
+      `menu_name` = #{record.menuName,jdbcType=VARCHAR},
+      `parent_id` = #{record.parentId,jdbcType=VARCHAR},
+      `menu_type` = #{record.menuType,jdbcType=INTEGER},
+      `url` = #{record.url,jdbcType=VARCHAR},
+      `order` = #{record.order,jdbcType=INTEGER},
+      `remark` = #{record.remark,jdbcType=VARCHAR},
+      `create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      `update_time` = #{record.updateTime,jdbcType=TIMESTAMP},
+      `status` = #{record.status,jdbcType=BIT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

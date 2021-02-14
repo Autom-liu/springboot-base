@@ -35,8 +35,8 @@ public class WebConfig extends WebMvcConfigurationSupport {
 	
 	@Override
 	protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(commonRequestBodyResolver);
-		OrderComparator.sort(resolvers);
+		//resolvers.add(commonRequestBodyResolver);
+		//OrderComparator.sort(resolvers);
 	}
 
 	@Override
