@@ -20,6 +20,8 @@ public enum DefaultSysErrorEnum implements IErrorEnum {
 	
 	/** 自定义解析器无法解析该参数 **/
 	PARAM_PARSE_ERROR("0406", "自定义解析器无法解析该参数"),
+
+	OUT_OF_ENUMS("0409", "字段超出枚举范围: "),
 	
 	;
 	

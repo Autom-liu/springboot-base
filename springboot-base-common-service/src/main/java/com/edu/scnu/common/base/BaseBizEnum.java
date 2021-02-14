@@ -1,7 +1,7 @@
 package com.edu.scnu.common.base;
 
 import com.edu.scnu.common.enums.BaseStatusEnum;
-import com.edu.scnu.common.factory.BaseEnumConverterDeserializerFactory;
+import com.edu.scnu.common.web.BaseEnumConverterDeserializerFactory;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**

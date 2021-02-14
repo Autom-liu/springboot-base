@@ -13,7 +13,7 @@
 	<property name="log.maxHistory" value="30" />
 	<!-- 日志存储位置 -->
 	<springProfile name="dev">
-		<property name="log.filePath" value="G:\\WebSpace\\myJee\\logs\\zwebapp"/>
+		<property name="log.filePath" value="/home/autom/project/log/zwebapp"/>
 	</springProfile>
 	<springProfile name="prod">
 		<property name="log.filePath" value="/var/log/webapps/zwebapp"/>

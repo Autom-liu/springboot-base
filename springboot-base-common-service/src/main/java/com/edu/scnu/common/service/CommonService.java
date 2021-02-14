@@ -3,6 +3,7 @@ package com.edu.scnu.common.service;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
+import com.edu.scnu.common.exception.BizException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -13,6 +14,7 @@ import com.edu.scnu.common.util.ConverterUtils;
 import com.edu.scnu.common.vo.PageVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import tk.mybatis.mapper.common.BaseMapper;
 
 /**
  * 通用服务接口，它可以快速为我们完成增删改查（单个）的服务开发<br/>
@@ -23,65 +25,104 @@ import com.github.pagehelper.PageInfo;
  * @param <DTO> DTO类型
  * @param <VO> VO类型
  */
-public abstract class BaseService<T, DTO, VO> implements IService<T, DTO, VO> {
-	
-	@Autowired
+public abstract class CommonService<T, DTO, VO> implements IService<T, DTO, VO> {
+
+	protected BaseMapper<T> baseMapper;
+
 	protected Mapper<T> mapper;
 	
 	private Class<T> beanClass;
 	
-	// private Class<DTO> dtoClass;
+	private Class<DTO> dtoClass;
 	
 	private Class<VO> voClass;
-	
-	@SuppressWarnings("unchecked")
-	protected BaseService() {
-		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
-		this.beanClass = (Class<T>) pt.getActualTypeArguments()[0];
-		// this.dtoClass = (Class<DTO>) pt.getActualTypeArguments()[1];
-		this.voClass = (Class<VO>) pt.getActualTypeArguments()[2];
+
+	public CommonService(BaseMapper<T> mapper, Class<T> beanClass, Class<DTO> dtoClass, Class<VO> voClass) {
+		this.baseMapper = mapper;
+		this.beanClass = beanClass;
+		this.dtoClass = dtoClass;
+		this.voClass = voClass;
+		if (mapper instanceof Mapper) {
+			this.mapper = (Mapper<T>) mapper;
+		}
 	}
-	
+
+	@Override
 	public List<VO> findAll() {
-		List<T> all = mapper.selectAll();
+		List<T> all = baseMapper.selectAll();
 		return ConverterUtils.copyList(all, voClass);
 	}
-	
-	public List<VO> findByIds(List<Integer> ids) {
-		List<T> result = mapper.selectByIdList(ids);
-		
+
+	@Override
+	public VO findOne(Integer id) {
+		T bean = baseMapper.selectByPrimaryKey(id);
+		VO result = ConverterUtils.copyBean(bean, this.voClass);
+		return result;
+	}
+
+	@Override
+	public VO findOne(String id) {
+		T bean = baseMapper.selectByPrimaryKey(id);
+		VO result = ConverterUtils.copyBean(bean, this.voClass);
+		return result;
+	}
+
+	@Override
+	public List<VO> findByIds(Integer[] idList) {
+		String ids = StringUtils.join(idList, ',');
+		List<T> result = mapper.selectByIds(ids);
 		return ConverterUtils.copyList(result, this.voClass);
 	}
-	
-	public VO findOne(Integer id) {
-		T bean = mapper.selectByPrimaryKey(id);
-		VO result = ConverterUtils.copyBean(bean, this.voClass);
-		return result;
+
+	@Override
+	public List<VO> findByIds(String[] idList) {
+		String ids = StringUtils.join(idList, ',');
+		List<T> result = mapper.selectByIds(ids);
+		return ConverterUtils.copyList(result, this.voClass);
 	}
-	
-	public VO findOne(String id) {
-		T bean = mapper.selectByPrimaryKey(id);
-		VO result = ConverterUtils.copyBean(bean, this.voClass);
-		return result;
+
+	@Override
+	public int countByIds(Integer[] idList) {
+		String ids = StringUtils.join(idList, ',');
+		List<T> result = mapper.selectByIds(ids);
+		return result.size();
 	}
-	
-	public int insert(DTO dto) {
-		T bean = ConverterUtils.copyBean(dto, this.beanClass);
-		return mapper.insertSelective(bean);
+
+	@Override
+	public int countByIds(String[] idList) {
+		String ids = StringUtils.join(idList, ',');
+		List<T> result = mapper.selectByIds(ids);
+		return result.size();
 	}
-	
-	public int deleteById(Integer id) {
-		return mapper.deleteByPrimaryKey(id);
-	}
-	
-	public int deleteByIds(List<Integer> idList) {
+
+	@Override
+	public int deleteByIds(Integer[] idList) {
 		String ids = StringUtils.join(idList, ',');
 		return mapper.deleteByIds(ids);
 	}
-	
+
+	@Override
+	public int deleteByIds(String[] idList) {
+		String ids = StringUtils.join(idList, ',');
+		return mapper.deleteByIds(ids);
+	}
+
+	@Override
+	public int insert(DTO dto) {
+		T bean = ConverterUtils.copyBean(dto, this.beanClass);
+		return baseMapper.insertSelective(bean);
+	}
+
+	@Override
+	public int deleteById(Integer id) {
+		return baseMapper.deleteByPrimaryKey(id);
+	}
+
+
+	@Override
 	public int updateByIdSelective(DTO dto) {
 		T bean = ConverterUtils.copyBean(dto, beanClass);
-		return mapper.updateByPrimaryKeySelective(bean);
+		return baseMapper.updateByPrimaryKeySelective(bean);
 	}
 	
 	/**

@@ -19,7 +19,6 @@ import com.edu.scnu.common.exception.BizException;
 import com.edu.scnu.common.vo.IResult;
 import com.edu.scnu.common.vo.Result;
 import com.edu.scnu.common.vo.ResultList;
-import com.edu.scnu.common.web.annotation.CommonRequestBody;
 
 @RestController
 public class AccountApi {
@@ -28,7 +27,7 @@ public class AccountApi {
 	private AccountService accountService;
 
 	@PostMapping("/account/add")
-	public IResult addAccount(@Valid @CommonRequestBody AccountDTO dto) throws BizException {
+	public IResult addAccount(@Valid AccountDTO dto) throws BizException {
 		accountService.insert(dto);
 		return Result.success("");
 	}

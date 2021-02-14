@@ -1,10 +1,12 @@
-package com.edu.scnu.common.factory;
+package com.edu.scnu.common.web;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.edu.scnu.common.base.BaseBizEnum;
+import com.edu.scnu.common.enums.DefaultSysErrorEnum;
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.converter.ConverterFactory;
@@ -53,7 +55,7 @@ public class BaseEnumConverterDeserializerFactory extends JsonDeserializer<BaseS
 		Converter converter = this.getConverter(propertyType);
 		Object convertResult = converter.convert(text);
 		if(convertResult == null) {
-			throw new SystemException(IErrorEnum.getInstance("0499", "字段超出枚举范围: " + currentName));
+			throw new SystemException(DefaultSysErrorEnum.OUT_OF_ENUMS, currentName);
 		}
 		return convertResult instanceof BaseStatusEnum ? (BaseStatusEnum) convertResult : null;
 	}

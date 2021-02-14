@@ -15,9 +15,17 @@ public class BizException extends Exception {
 	
 	private IErrorEnum exceptionEnum;
 
+	private String otherInfo;
+
 	public BizException(IErrorEnum exceptionEnum) {
 		super(exceptionEnum.getMsg());
 		this.exceptionEnum = exceptionEnum;
+	}
+
+	public BizException(IErrorEnum exceptionEnum, String otherInfo) {
+		super(exceptionEnum.getMsg() + otherInfo);
+		this.exceptionEnum = exceptionEnum;
+		this.otherInfo = otherInfo;
 	}
 
 	public IErrorEnum getExceptionEnum() {

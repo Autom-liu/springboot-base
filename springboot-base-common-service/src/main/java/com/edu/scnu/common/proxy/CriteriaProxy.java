@@ -10,8 +10,9 @@ import org.springframework.util.StringUtils;
 /**
  * Criteria 类的代理类生成工具，可以使得Criteria很方便链式调用构造查询条件
  * @author Autom
- *
+ * @deprecated 省得代理直接改代码了
  */
+@Deprecated
 public class CriteriaProxy implements MethodInterceptor {
 	
 	private Object target;
