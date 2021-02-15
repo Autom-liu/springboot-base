@@ -14,6 +14,7 @@ import com.edu.scnu.admin.mapper.UserRoleMapper;
 import com.edu.scnu.admin.vo.DeptRoleEntity;
 import com.edu.scnu.admin.vo.UserEntity;
 import com.edu.scnu.admin.web.config.CurrentUser;
+import com.edu.scnu.admin.web.config.IgnorePermission;
 import com.edu.scnu.common.exception.BizException;
 import com.edu.scnu.common.util.ConverterUtils;
 import com.edu.scnu.common.util.StringUtils;
@@ -26,6 +27,7 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -36,6 +38,7 @@ import java.util.List;
  */
 @Slf4j
 @ResponseBody
+@RequestMapping("admin")
 public class LocalDeptUserAPI {
 
     @Autowired
@@ -151,6 +154,14 @@ public class LocalDeptUserAPI {
         return Result.success("重置成功");
     }
 
+    /**
+     * 用户登陆模块
+     * @param userId
+     * @param password
+     * @param session
+     * @return
+     */
+    @IgnorePermission
     @PostMapping("user/login")
     public IResult userLogin(String userId, String password, HttpSession session) {
         User user = userMapper.selectByPrimaryKey(userId);
@@ -165,10 +176,23 @@ public class LocalDeptUserAPI {
             session.setAttribute("CURRENT_USER", userEntity);
             return Result.success(session.getId());
         } else {
+            session.invalidate();
             return getRes;
         }
     }
 
+    @PostMapping("user/logout")
+    public IResult userLogout(HttpSession session) {
+        session.invalidate();
+        return Result.success("success");
+    }
+
+    /**
+     * 获取当前登陆用户信息
+     * @param userEntity
+     * @param session
+     * @return
+     */
     @PostMapping("user/current")
     public IResult getCurrentUser(@CurrentUser UserEntity userEntity, HttpSession session) {
         if (userEntity == null) {

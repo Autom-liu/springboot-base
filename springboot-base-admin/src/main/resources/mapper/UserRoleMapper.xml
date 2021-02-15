@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.edu.scnu.idnt.mapper.UserRoleMapper">
-  <resultMap id="BaseResultMap" type="com.edu.scnu.idnt.bean.UserRole">
+<mapper namespace="com.edu.scnu.admin.mapper.UserRoleMapper">
+  <resultMap id="BaseResultMap" type="com.edu.scnu.admin.bean.UserRole">
     <!--
       WARNING - @mbg.generated
     -->
@@ -83,7 +83,7 @@
     -->
     `user_id`, `dept_id`, `role_id`, `is_default`, `create_time`, `update_time`, `status`
   </sql>
-  <select id="selectByExample" parameterType="com.edu.scnu.idnt.bean.UserRoleExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.edu.scnu.admin.bean.UserRoleExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
     -->
@@ -100,7 +100,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.edu.scnu.idnt.bean.UserRoleExample">
+  <delete id="deleteByExample" parameterType="com.edu.scnu.admin.bean.UserRoleExample">
     <!--
       WARNING - @mbg.generated
     -->
@@ -109,7 +109,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <select id="countByExample" parameterType="com.edu.scnu.idnt.bean.UserRoleExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.edu.scnu.admin.bean.UserRoleExample" resultType="java.lang.Long">
     <!--
       WARNING - @mbg.generated
     -->
@@ -190,7 +190,7 @@
     </association>
   </resultMap>
 
-  <select id="joinWithDeptRole">
+  <select id="joinWithDeptRole" resultMap="DeptRoleMap">
     select rel.user_id, rel.dept_id, rel.role_id, is_default, dept_name, parent_id, dept_level, dept_type, dept_manager, dept_category, dept_property, phone, address, role_name
     from idnt_dept_role_user_rel rel left join idnt_department dept on rel.dept_id = dept.dept_id left join idnt_role role on rel.role_id = role.role_id
     where rel.user_id = #{userId}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.edu.scnu.idnt.mapper.DepartmentMapper">
-  <resultMap id="BaseResultMap" type="com.edu.scnu.idnt.bean.Department">
+<mapper namespace="com.edu.scnu.admin.mapper.DepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.edu.scnu.admin.bean.Department">
     <!--
       WARNING - @mbg.generated
     -->
@@ -93,7 +93,7 @@
     `dept_property`, `phone`, `address`, `effective_time`, `remark`, `create_time`, `update_time`, 
     `status`
   </sql>
-  <select id="selectByExample" parameterType="com.edu.scnu.idnt.bean.DepartmentExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.edu.scnu.admin.bean.DepartmentExample" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
     -->
@@ -110,7 +110,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.edu.scnu.idnt.bean.DepartmentExample">
+  <delete id="deleteByExample" parameterType="com.edu.scnu.admin.bean.DepartmentExample">
     <!--
       WARNING - @mbg.generated
     -->
@@ -119,7 +119,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <select id="countByExample" parameterType="com.edu.scnu.idnt.bean.DepartmentExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.edu.scnu.admin.bean.DepartmentExample" resultType="java.lang.Long">
     <!--
       WARNING - @mbg.generated
     -->

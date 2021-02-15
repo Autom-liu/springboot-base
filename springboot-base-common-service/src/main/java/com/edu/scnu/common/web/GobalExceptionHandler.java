@@ -78,7 +78,7 @@ public class GobalExceptionHandler {
 	 * @return
 	 */
 	@ExceptionHandler(BizException.class)
-	@ResponseStatus(HttpStatus.BAD_GATEWAY)
+	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public IResult bizException(BizException e, HttpServletRequest request) {
 		if(log.isWarnEnabled()) {
