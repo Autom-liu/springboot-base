@@ -78,7 +78,7 @@ public class LocalDeptUserAPI {
 
 
     /**
-     * 用户权限分配接口
+     * 用户分配接口
      * @param userId
      * @param deptId
      * @param roleId
@@ -161,7 +161,7 @@ public class LocalDeptUserAPI {
      * @param session
      * @return
      */
-    @IgnorePermission
+    @IgnorePermission(loginCheck = false, permissionCheck = false)
     @PostMapping("user/login")
     public IResult userLogin(String userId, String password, HttpSession session) {
         User user = userMapper.selectByPrimaryKey(userId);
@@ -181,6 +181,7 @@ public class LocalDeptUserAPI {
         }
     }
 
+    @IgnorePermission(permissionCheck = false)
     @PostMapping("user/logout")
     public IResult userLogout(HttpSession session) {
         session.invalidate();
@@ -193,6 +194,7 @@ public class LocalDeptUserAPI {
      * @param session
      * @return
      */
+    @IgnorePermission(permissionCheck = false)
     @PostMapping("user/current")
     public IResult getCurrentUser(@CurrentUser UserEntity userEntity, HttpSession session) {
         if (userEntity == null) {
@@ -202,6 +204,7 @@ public class LocalDeptUserAPI {
             }
             userEntity = new UserEntity();
             User user = userMapper.selectByPrimaryKey(userId);
+            user.setPassword(null);
             userEntity.setUser(user);
             List<DeptRoleEntity> dpList = getDeptRole(userId);
             if (CollectionUtils.isEmpty(dpList)) {

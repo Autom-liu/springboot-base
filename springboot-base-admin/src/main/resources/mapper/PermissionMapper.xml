@@ -151,4 +151,25 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
+
+  <resultMap id="MenuMap" type="com.edu.scnu.admin.bean.Menu">
+    <id column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="menu_name" jdbcType="VARCHAR" property="menuName" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="menu_type" jdbcType="INTEGER" property="menuType" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="order" jdbcType="INTEGER" property="order" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="status" jdbcType="BIT" property="status" />
+  </resultMap>
+
+  <select id="joinWithMenu" resultMap="MenuMap">
+    select p.menu_id, menu_name, parent_id, menu_type, url, `order`
+    from idnt_permission p left join idnt_menu m on p.menu_id = m.menu_id
+    where dept_id = #{deptId} and role_id = #{roleId} and user_id = #{userId}
+  </select>
+
+
 </mapper>

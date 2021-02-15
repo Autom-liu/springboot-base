@@ -39,6 +39,12 @@ public enum ErrorEnum implements IErrorEnum {
     /**非本人禁止操作**/
     ERRCODE_0010("0010", "非本人禁止操作"),
 
+    /**菜单信息不存在**/
+    ERRCODE_0011("0011", "菜单信息不存在"),
+
+    /**无权访问**/
+    ERRCODE_0012("0012", "无权访问"),
+
     ;
     private String code;
 
