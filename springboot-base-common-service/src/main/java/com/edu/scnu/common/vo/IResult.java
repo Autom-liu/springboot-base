@@ -1,6 +1,7 @@
 package com.edu.scnu.common.vo;
 
 import com.edu.scnu.common.enums.IErrorEnum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 全局统一通用返回接口
@@ -21,6 +22,16 @@ public interface IResult {
 	void setT(Throwable t);
 	
 	Throwable getT();
+
+	@JsonIgnore
+	default boolean isSuccess() {
+		return "0000".equals(getCode());
+	}
+
+	@JsonIgnore
+	default boolean isNotSuccess() {
+		return !"0000".equals(getCode());
+	}
 	
 	public static IResult error(String code, String msg) {
 		IResult result = new Result<>();
@@ -41,6 +52,13 @@ public interface IResult {
 		IResult result = new Result<>();
 		result.setCode(errorEnum.getCode());
 		result.setMsg(errorEnum.getMsg());
+		return result;
+	}
+
+	public static IResult error(IErrorEnum errorEnum, String info) {
+		IResult result = new Result<>();
+		result.setCode(errorEnum.getCode());
+		result.setMsg(errorEnum.getMsg() + info);
 		return result;
 	}
 	

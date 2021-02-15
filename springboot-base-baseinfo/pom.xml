@@ -9,7 +9,7 @@
   <dependencies>
   	<dependency>
   		<groupId>com.edu.scnu</groupId>
-  		<artifactId>springboot-base-common-service</artifactId>
+  		<artifactId>springboot-base-admin</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
   </dependencies>
